@@ -1,5 +1,6 @@
 package de.poohscord.pooheconomy;
 
+import de.poohscord.pooheconomy.economy.EconomyManager;
 import de.poohscord.pooheconomy.economy.impl.command.BalanceCommand;
 import de.poohscord.pooheconomy.economy.impl.data.DatabaseDriver;
 import de.poohscord.pooheconomy.economy.impl.data.impl.MongoDriverImpl;
@@ -11,23 +12,27 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class PoohEconomyPlugin extends JavaPlugin {
 
-    private DatabaseDriver databaseDriver;
+    private static DatabaseDriver databaseDriver;
 
     @Override
     public void onEnable() {
-        this.databaseDriver = new MongoDriverImpl(this);
-        this.databaseDriver.connect();
+        databaseDriver = new MongoDriverImpl(this);
+        databaseDriver.connect();
 
         MessageConfig messageConfig = new MessageYamlConfig(this);
 
         PluginManager pm = this.getServer().getPluginManager();
-        pm.registerEvents(new EconomyListener(this.databaseDriver, messageConfig), this);
+        pm.registerEvents(new EconomyListener(databaseDriver, messageConfig), this);
 
-        getCommand("balance").setExecutor(new BalanceCommand(this.databaseDriver, messageConfig));
+        getCommand("balance").setExecutor(new BalanceCommand(databaseDriver, messageConfig));
     }
 
     @Override
     public void onDisable() {
-        this.databaseDriver.disconnect();
+        databaseDriver.disconnect();
+    }
+
+    public static EconomyManager getEconomyManager() {
+        return databaseDriver;
     }
 }
