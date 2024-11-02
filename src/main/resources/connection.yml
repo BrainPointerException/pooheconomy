@@ -1,0 +1,4 @@
+db:
+  mongo:
+    uri: "mongodb://<user>:<password>@localhost:27017/<db>?authSource=admin"
+    collection: "economy"

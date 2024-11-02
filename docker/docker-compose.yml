@@ -1,0 +1,62 @@
+services:
+  mongo-mc:
+    image: itzg/minecraft-server
+    networks:
+      - internal
+    ports:
+      - target: 25565
+        published: 25565
+        protocol: tcp
+        mode: host
+    environment:
+      EULA: "TRUE"
+      VERSION: "1.21.1"
+      TYPE: "PAPER"
+      MEMORY: "1G"
+      TZ: "Europe/Berlin"
+      SERVER_PORT: "25565"
+      ONLINE_MODE: "FALSE"
+    volumes:
+      - type: bind
+        source: ./data
+        target: /data/plugins
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo
+    networks:
+      - internal
+    restart: always
+    environment:
+        MONGO_INITDB_ROOT_USERNAME: "root"
+        MONGO_INITDB_ROOT_PASSWORD: "root"
+        MONGO_INITDB_DATABASE: "minecraft"
+    volumes:
+      - type: bind
+        source: ./mongo
+        target: /data/db
+    ports:
+      - target: 27017
+        published: 27017
+        protocol: tcp
+
+  mongo-express:
+    image: mongo-express
+    restart: always
+    networks:
+      - internal
+    ports:
+      - target: 8081
+        published: 8081
+        protocol: tcp
+        mode: host
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: root
+      ME_CONFIG_MONGODB_URL: mongodb://root:root@mongo:27017/
+    depends_on:
+      - mongo
+
+networks:
+  internal:

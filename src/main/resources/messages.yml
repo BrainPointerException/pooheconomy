@@ -1,0 +1,16 @@
+prefix: "&8[&6GELD&8] &e"
+message:
+  playerEconomyInitSuccessMessage: "&eSammle Honigtropfen und Honigkristalle und werde reich!"
+  playerEconomyInitFailMessage: "&cEs gab ein Problem beim Initialisieren des Honigs. Bitte kontaktiere einen Administrator."
+  commandSenderMustBePlayerMessage: "&cDu musst ein Spieler sein, um diesen Befehl auszuführen."
+  ownBalanceMessage:
+    - "&eDein Kontostand:"
+    - "&6%honigtropfen% &eHonigtropfen"
+    - "&6%honigkristalle% &eHonigkristalle"
+  balanceMessage:
+    - "&eKontostand von &6%player_name%&e:"
+    - "&6%honigtropfen% &eHonigtropfen"
+    - "&6%honigkristalle% &eHonigkristalle"
+  playerNotFoundMessage: "&cSpieler nicht gefunden."
+  balanceCommandUsageMessage: "&cVerwendung: /balance <set|add|remove> <honigtropfen|honigkristalle> <player> <amount>"
+  balanceChangeMessage: "&eDer Spieler &6%player_name%&e hat nun &6%amount% &e%currency%."

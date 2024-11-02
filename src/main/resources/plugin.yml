@@ -1,0 +1,19 @@
+name: PoohEconomyPlugin
+version: 1.0.0
+main: de.poohscord.pooheconomy.PoohEconomyPlugin
+description: PoohEconomy
+author: BrainPointerException
+api-version: 1.21.1
+
+commands:
+  balance:
+    description: Shows the balance of a player
+    usage: /balance [player]
+    aliases:
+      - money
+      - bal
+      - eco
+      - economy
+      - coins
+      - cash
+      - honig
