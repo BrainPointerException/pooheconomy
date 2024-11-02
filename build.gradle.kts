@@ -2,6 +2,7 @@ plugins {
     id("java")
     id("io.spring.dependency-management") version "1.1.6"
     id("com.github.johnrengelman.shadow") version "7.1.2"
+    `maven-publish`
 }
 
 group = "de.poohscord.pooheconomy"
@@ -27,6 +28,12 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter")
 }
 
+java {
+    toolchain.languageVersion.set(JavaLanguageVersion.of(21))
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+}
+
 tasks.test {
     useJUnitPlatform()
 }
@@ -37,5 +44,17 @@ tasks.shadowJar {
 
     doFirst {
         println("Generated fatJars!")
+    }
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("maven") {
+            groupId = "de.poohscord.pooheconomy"
+            artifactId = "pooheconomy"
+            version = "1.0-SNAPSHOT"
+
+            from(components["java"])
+        }
     }
 }
