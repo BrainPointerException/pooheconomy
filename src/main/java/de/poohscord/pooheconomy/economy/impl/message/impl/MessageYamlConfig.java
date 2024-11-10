@@ -79,6 +79,31 @@ public class MessageYamlConfig implements MessageConfig {
         return getMessage("balanceCommandUsageMessage");
     }
 
+    @Override
+    public Component getPayCommandUsageMessage() {
+        return getMessage("payCommandUsageMessage");
+    }
+
+    @Override
+    public Component getBalanceNotEnoughMessage(Currency currency) {
+        return SERIALIZER.deserialize(SERIALIZER.serialize(getMessage("balanceNotEnoughMessage"))
+                .replace("%currency%", currency.name()));
+    }
+
+    @Override
+    public Component getPaymentTransferMessage(Player sender, String targetName, int amount) {
+        return SERIALIZER.deserialize(SERIALIZER.serialize(getMessage("paymentTransferMessage"))
+                .replace("%player_name%", targetName)
+                .replace("%amount%", String.valueOf(amount)));
+    }
+
+    @Override
+    public Component getPaymentReceiveMessage(Player receiver, String senderName, int amount) {
+        return SERIALIZER.deserialize(SERIALIZER.serialize(getMessage("paymentReceiveMessage"))
+                .replace("%player_name%", senderName)
+                .replace("%amount%", String.valueOf(amount)));
+    }
+
     private Component getStringListMessage(String message, Map<String, String> placeholders) {
         List<String> messageList = this.config.getStringList("message." + message);
         Component component = Component.text("").appendNewline();

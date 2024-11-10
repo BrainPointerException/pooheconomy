@@ -2,6 +2,7 @@ package de.poohscord.pooheconomy;
 
 import de.poohscord.pooheconomy.economy.EconomyManager;
 import de.poohscord.pooheconomy.economy.impl.command.BalanceCommand;
+import de.poohscord.pooheconomy.economy.impl.command.PayCommand;
 import de.poohscord.pooheconomy.economy.impl.data.DatabaseDriver;
 import de.poohscord.pooheconomy.economy.impl.data.impl.MongoDriverImpl;
 import de.poohscord.pooheconomy.economy.impl.listener.EconomyListener;
@@ -25,6 +26,7 @@ public class PoohEconomyPlugin extends JavaPlugin {
         pm.registerEvents(new EconomyListener(databaseDriver, messageConfig), this);
 
         getCommand("balance").setExecutor(new BalanceCommand(databaseDriver, messageConfig));
+        getCommand("pay").setExecutor(new PayCommand(databaseDriver, messageConfig));
     }
 
     @Override

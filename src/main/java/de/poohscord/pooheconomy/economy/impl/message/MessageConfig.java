@@ -24,4 +24,12 @@ public interface MessageConfig {
 
     Component getBalanceCommandUsageMessage();
 
+    Component getPayCommandUsageMessage();
+
+    Component getBalanceNotEnoughMessage(Currency currency);
+
+    Component getPaymentTransferMessage(Player sender, String targetName, int amount);
+
+    Component getPaymentReceiveMessage(Player receiver, String senderName, int amount);
+
 }

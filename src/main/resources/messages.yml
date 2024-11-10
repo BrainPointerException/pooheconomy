@@ -14,3 +14,7 @@ message:
   playerNotFoundMessage: "&cSpieler nicht gefunden."
   balanceCommandUsageMessage: "&cVerwendung: /balance <set|add|remove> <honigtropfen|honigkristalle> <player> <amount>"
   balanceChangeMessage: "&eDer Spieler &6%player_name%&e hat nun &6%amount% &e%currency%."
+  payCommandUsageMessage: "&cVerwendung: /pay <player> <amount>"
+  balanceNotEnoughMessage: "&cDu hast nicht genug %currency%."
+  paymentTransferMessage: "&eDu hast &6%amount% &ean &6%player_name% &eüberwiesen."
+  paymentReceiveMessage: "&eDu hast &6%amount% &evon &6%player_name% &eerhalten."

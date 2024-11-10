@@ -4,6 +4,8 @@ import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
 import com.mongodb.ServerApi;
 import com.mongodb.ServerApiVersion;
+import com.mongodb.client.model.IndexOptions;
+import com.mongodb.client.model.Indexes;
 import com.mongodb.reactivestreams.client.*;
 import de.poohscord.pooheconomy.economy.Currency;
 import de.poohscord.pooheconomy.economy.impl.data.DatabaseDriver;
@@ -11,6 +13,7 @@ import org.bson.Document;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.reactivestreams.Publisher;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -50,6 +53,14 @@ public class MongoDriverImpl implements DatabaseDriver {
         this.client = MongoClients.create(settings);
         MongoDatabase database = this.client.getDatabase(connectionString.getDatabase());
         this.collection = database.getCollection(this.config.getString("db.mongo.collection"));
+
+        initializeIndexes();
+    }
+
+    private void initializeIndexes() {
+        IndexOptions indexOptions = new IndexOptions().unique(true);
+        Publisher<String> publisher = this.collection.createIndex(Indexes.ascending("playerUuid"), indexOptions);
+        Mono.from(publisher).block();
     }
 
     @Override

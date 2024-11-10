@@ -17,3 +17,19 @@ commands:
       - coins
       - cash
       - honig
+  pay:
+    description: Pay a player
+    usage: /pay <player> <amount>
+    aliases:
+      - send
+      - transfer
+      - give
+      - donate
+      - payplayer
+      - payto
+      - sendmoney
+      - transfermoney
+      - givemoney
+      - donatemoney
+      - paycoins
+      - payhonig
