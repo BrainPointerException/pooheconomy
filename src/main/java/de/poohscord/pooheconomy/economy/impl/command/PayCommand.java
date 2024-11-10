@@ -52,6 +52,11 @@ public class PayCommand implements CommandExecutor, TabExecutor {
             return false;
         }
 
+        if (amount <= 0) {
+            player.sendMessage(this.config.getPayCommandUsageMessage());
+            return false;
+        }
+
         em.hasSufficientBalance(player, Currency.HONIGTROPFEN, amount).subscribe(balance -> {
             if (!balance) {
                 player.sendMessage(this.config.getBalanceNotEnoughMessage(Currency.HONIGTROPFEN));

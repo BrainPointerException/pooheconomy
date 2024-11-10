@@ -32,4 +32,8 @@ public interface MessageConfig {
 
     Component getPaymentReceiveMessage(Player receiver, String senderName, int amount);
 
+    Component getExchangeCommandUsageMessage();
+
+    Component getExchangeSuccessMessage(int fromAmount, int toAmount);
+
 }

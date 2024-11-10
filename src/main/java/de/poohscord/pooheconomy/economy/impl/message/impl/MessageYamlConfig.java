@@ -104,6 +104,18 @@ public class MessageYamlConfig implements MessageConfig {
                 .replace("%amount%", String.valueOf(amount)));
     }
 
+    @Override
+    public Component getExchangeCommandUsageMessage() {
+        return getMessage("exchangeCommandUsageMessage");
+    }
+
+    @Override
+    public Component getExchangeSuccessMessage(int fromAmount, int toAmount) {
+        return SERIALIZER.deserialize(SERIALIZER.serialize(getMessage("exchangeSuccessMessage"))
+                .replace("%from_amount%", String.valueOf(fromAmount))
+                .replace("%to_amount%", String.valueOf(toAmount)));
+    }
+
     private Component getStringListMessage(String message, Map<String, String> placeholders) {
         List<String> messageList = this.config.getStringList("message." + message);
         Component component = Component.text("").appendNewline();

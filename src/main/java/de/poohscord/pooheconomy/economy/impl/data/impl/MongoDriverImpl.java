@@ -165,6 +165,17 @@ public class MongoDriverImpl implements DatabaseDriver {
     }
 
     @Override
+    public Mono<Boolean> exchangeCurrency(Player player, int exchangeRate, int amount) {
+        return getBalance(player, Currency.HONIGKRISTALLE)
+                .flatMap(honeyBalance -> {
+                    if (honeyBalance < amount) return Mono.just(false);
+                    return Mono.zip(setBalance(player, Currency.HONIGKRISTALLE, honeyBalance - amount),
+                            addBalance(player, Currency.HONIGTROPFEN, amount * exchangeRate))
+                            .map(success -> success.getT1() && success.getT2());
+                });
+    }
+
+    @Override
     public Mono<Integer> getBalance(UUID playerUuid, Currency currency) {
         return Mono.from(this.collection.find(new Document("playerUuid", playerUuid.toString())))
                 .map(document -> document.getInteger(currency.name()));

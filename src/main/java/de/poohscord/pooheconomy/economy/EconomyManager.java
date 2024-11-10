@@ -33,4 +33,6 @@ public interface EconomyManager extends EconomyQuery { ;
 
     Mono<Boolean> transferBalance(Player fromPlayer, Player toPlayer, int amount);
 
+    Mono<Boolean> exchangeCurrency(Player player, int exchangeRate, int amount);
+
 }
